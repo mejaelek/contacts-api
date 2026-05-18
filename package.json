@@ -5,7 +5,8 @@
     "main": "server.js",
     "scripts": {
         "start": "node server.js",
-        "dev": "nodemon server.js"
+        "dev": "nodemon server.js",
+        "swagger-gen": "node swagger.js"
     },
     "keywords": [
         "contacts",
@@ -19,9 +20,11 @@
     "dependencies": {
         "dotenv": "^16.4.5",
         "express": "^4.18.3",
-        "mongoose": "^8.2.1"
+        "mongoose": "^8.2.1",
+        "swagger-autogen": "^2.23.7",
+        "swagger-ui-express": "^5.0.1"
     },
     "devDependencies": {
-        "nodemon": "^3.1.0"
+        "nodemon": "^3.1.14"
     }
 }

@@ -1,5 +1,7 @@
 require('dotenv').config();
 const express = require('express');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger-output.json');
 const connectDB = require('./db/connection');
 const contactsRouter = require('./routes/contacts');
 
@@ -13,16 +15,23 @@ connectDB();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Swagger documentation route
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 // Routes
 app.use('/contacts', contactsRouter);
 
-// Root route – health check
+// Root route
 app.get('/', (req, res) => {
     res.json({
         message: 'Contacts API is running',
+        documentation: '/api-docs',
         endpoints: {
             getAllContacts: 'GET /contacts',
             getSingleContact: 'GET /contacts/:id',
+            createContact: 'POST /contacts',
+            updateContact: 'PUT /contacts/:id',
+            deleteContact: 'DELETE /contacts/:id',
         },
     });
 });
@@ -34,4 +43,4 @@ app.use((req, res) => {
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
-}); 
+});
